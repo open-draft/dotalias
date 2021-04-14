@@ -1,7 +1,7 @@
 {
-  "name": "palias",
+  "name": "dotalias",
   "version": "0.0.0",
-  "description": "Manage path alias across multiple configurations (webpack, TypeScript, Jest, etc.)",
+  "description": "Manage path alias across multiple configurations (webpack, TypeScript, Jest, etc).",
   "main": "lib/index.js",
   "author": "Artem Zakharchenko",
   "license": "MIT",
@@ -9,6 +9,10 @@
     "test": "jest",
     "build": "tsc"
   },
+  "files": [
+    "README.md",
+    "lib"
+  ],
   "devDependencies": {
     "@types/jest": "^26.0.22",
     "@types/node": "^14.14.37",
