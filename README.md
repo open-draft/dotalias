@@ -19,15 +19,42 @@ $ npm install dotalias
 ### Create configuration
 
 ```bash
-$ touch .alias.config.js
+$ touch alias.config.js
 ```
 
 ```js
-// .alias.config.js
+// alias.config.js
 module.exports = {
   myModule: './module.js',
 }
 ```
+
+## Configuration
+
+### Configuration file
+
+You can write the alias configuration in any of the following files:
+
+- `.aliasrc`
+- `.aliasrc.json`
+- `.aliasrc.yaml`
+- `.aliasrc.yml`
+- `.aliasrc.js`
+- `.aliasrc.cjs`
+- `alias.config.js`
+- `alias.config.cjs`
+
+You can also add the `"alias"` key to your `package.json`:
+
+```json
+{
+  "alias": {
+    "myModule": "./module.js"
+  }
+}
+```
+
+> We are using [cosmiconfig](https://github.com/davidtheclark/cosmiconfig) to resolve the configuration file. Learn more about the way it gets resolved in the mentioned repository.
 
 ## Integrations
 
