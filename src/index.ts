@@ -3,7 +3,7 @@ import * as path from 'path'
 import { toJestConfig } from './converters/toJestConfig'
 import { toWebpackConfig } from './converters/toWebpackConfig'
 
-const aliasConfigPath = path.resolve(process.cwd(), 'alias.config.js')
+const aliasConfigPath = path.resolve(process.cwd(), '.alias.config.js')
 
 if (!fs.existsSync(aliasConfigPath)) {
   throw new Error(
