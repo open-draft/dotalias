@@ -3,10 +3,14 @@
   "version": "0.0.2",
   "description": "Manage path alias across multiple configurations (webpack, TypeScript, Jest, etc).",
   "main": "lib/index.js",
+  "bin": {
+    "dotalias": "lib/bin/index.js"
+  },
   "author": "Artem Zakharchenko",
   "license": "MIT",
   "scripts": {
     "start": "tsc -w",
+    "cli": "node lib/bin/index.js",
     "test": "jest",
     "clean": "rimraf ./lib",
     "build": "yarn clean && tsc",
@@ -32,6 +36,8 @@
     "webpack": "^5.32.0"
   },
   "dependencies": {
-    "cosmiconfig": "^7.0.0"
+    "@types/yargs": "^16.0.1",
+    "cosmiconfig": "^7.0.0",
+    "yargs": "^16.2.0"
   }
 }

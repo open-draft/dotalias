@@ -1,6 +1,7 @@
 import { cosmiconfigSync } from 'cosmiconfig'
 import { toJestConfig } from './converters/toJestConfig'
 import { toRollup } from './converters/toRollup'
+import { toTypeScript } from './converters/toTypeScript'
 import { toWebpackConfig } from './converters/toWebpackConfig'
 
 const explorer = cosmiconfigSync('alias')
@@ -14,4 +15,5 @@ export const alias = {
   jest: toJestConfig(result.config),
   webpack: toWebpackConfig(result.config),
   rollup: toRollup(result.config),
+  toTypeScript: toTypeScript(result.config),
 }

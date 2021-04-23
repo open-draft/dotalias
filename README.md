@@ -152,3 +152,19 @@ module.exports = {
   ...alias.jest,
 }
 ```
+
+### TypeScript
+
+Execute the following command in your project's root directory:
+
+```bash
+$ npx dotalias ts
+```
+
+This command will generate a `tsconfig.alias.json` partial TypeScript configuration file that you can later extend in your `tsconfig.json` to enable path aliases:
+
+```json
+{
+  "extends": "./tsconfig.alias.json"
+}
+```

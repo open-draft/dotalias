@@ -8,8 +8,8 @@ import { AliasConfig } from '../glossary'
 export function toWebpackConfig(alias: AliasConfig) {
   return {
     resolve: {
-      alias: Object.entries(alias).reduce((config, [name, value]) => {
-        config[name] = path.resolve(process.cwd(), value)
+      alias: Object.entries(alias).reduce((config, [name, modulePath]) => {
+        config[name] = path.resolve(process.cwd(), modulePath)
         return config
       }, {}),
     },
