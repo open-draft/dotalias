@@ -58,6 +58,8 @@ You can also add the `"alias"` key to your `package.json`:
 
 ## Integrations
 
+All the integration examples below assume you have the [configuration file](#configuration-file) created at the root of your application.
+
 ### webpack
 
 ```js
