@@ -106,7 +106,7 @@ import result from 'myModule'
 In the same fashion, the configuration file can be written in [various formats](#configuration-file). Here's an example using YAML:
 
 ```yaml
-myResult: './yours'
+myResult: './module.js'
 ```
 
 ## Integrations
