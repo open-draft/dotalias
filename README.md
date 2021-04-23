@@ -69,6 +69,24 @@ module.exports = {
 }
 ```
 
+### Rollup
+
+```js
+// rollup.config.js
+const { alias } = require('dotalias')
+const aliasPlugin = require('@rollup/plugin-alias')
+
+module.exports = {
+  plugins: [
+    aliasPlugin({
+      ...alias.rollup,
+    }),
+  ],
+}
+```
+
+> Requires you to have the [@rollup/plugin-alias](https://github.com/rollup/plugins/tree/master/packages/alias) package installed.
+
 ### Jest
 
 ```js
