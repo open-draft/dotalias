@@ -1,8 +1,13 @@
 import { execSync } from 'child_process'
 
 beforeAll(() => {
-  jest.spyOn(global.console, 'warn')
-  jest.spyOn(global.console, 'error')
+  jest.spyOn(global.console, 'log').mockImplementation()
+  jest.spyOn(global.console, 'warn').mockImplementation()
+  jest.spyOn(global.console, 'error').mockImplementation()
+})
+
+afterAll(() => {
+  jest.restoreAllMocks()
 })
 
 it('generates partial TypeScript configuration', async () => {

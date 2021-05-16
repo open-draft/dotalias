@@ -7,7 +7,7 @@ const { alias } = require('../..')
 module.exports = {
   input: path.resolve(__dirname, 'index.js'),
   output: {
-    format: 'cjs',
+    format: 'esm',
   },
   plugins: [
     aliasPlugin({

@@ -1,3 +1,5 @@
 module.exports = {
-  foo: '../fixtures/foo.js',
+  'exact-file': '../fixtures/exact.js',
+  'exact-dir': '../fixtures/dir',
+  'nested-dir/*': '../fixtures/dir/*',
 }

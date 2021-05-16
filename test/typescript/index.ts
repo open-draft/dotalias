@@ -1,3 +1,3 @@
-import number from 'foo'
+import exact from 'exact-file'
 
-console.log(number)
+console.log(exact)

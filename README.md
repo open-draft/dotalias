@@ -57,8 +57,6 @@ Refer to the [integration examples](#integrations) to use this library with vari
 
 ## Configuration
 
-### Configuration file
-
 You can write the alias configuration in any of the following files:
 
 - `.aliasrc`
@@ -107,6 +105,24 @@ In the same fashion, the configuration file can be written in [various formats](
 
 ```yaml
 myResult: './module.js'
+```
+
+### Exact module name
+
+```js
+// alias.config.js
+module.exports = {
+  components: './src/components',
+}
+```
+
+### Dynamic module name
+
+```js
+// alias.config.js
+module.exports = {
+  'utils/*': './src/utils/*',
+}
 ```
 
 ## Integrations

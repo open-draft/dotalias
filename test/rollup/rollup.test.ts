@@ -1,6 +1,4 @@
-import { rollup } from 'rollup'
-
-const rollupConfig = require('./rollup.config')
+import { execSync } from 'child_process'
 
 beforeAll(() => {
   jest.spyOn(global.console, 'warn')
@@ -11,9 +9,17 @@ afterAll(() => {
   jest.restoreAllMocks()
 })
 
-it('supports rollup module alias with "@rollup/plugin-alias"', async () => {
-  await rollup(rollupConfig)
+it('supports rollup module alias with "@rollup/plugin-alias"', () => {
+  const data = execSync('../../node_modules/.bin/rollup -c', {
+    cwd: __dirname,
+    stdio: 'pipe',
+  })
+  const output = data.toString()
 
   expect(console.warn).not.toHaveBeenCalled()
   expect(console.error).not.toHaveBeenCalled()
+
+  // Expect Rollup to resolve imported modules in-place.
+  expect(output).toContain(`var exact = 'exact'`)
+  expect(output).toContain(`var one = 'dir-one'`)
 })

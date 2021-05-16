@@ -1,3 +1,7 @@
-import number from 'foo'
+const exact = require('exact-file')
+const one = require('nested-dir/one')
 
-console.log(number)
+module.exports = {
+  exact,
+  one,
+}
