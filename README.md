@@ -10,13 +10,13 @@ Manage path aliases across multiple configurations.
 
 ## Motivation
 
-_Path alias_ is a powerful technique to leverage relative paths in your projects. It allows to replace long import paths like this:
+Path alias is a powerful way to manage relative paths in your projects by replacing long import paths like this:
 
 ```js
 import result from '../../../../utils/getResult'
 ```
 
-with a defined alias:
+with a defined alias like this:
 
 ```js
 import result from 'utils/getResult'
@@ -24,11 +24,11 @@ import result from 'utils/getResult'
 
 > In this example, the `utils/` portion of the import is an _alias_ that resolves to the same relative directory.
 
-This allows for shorter and more manageable imports, also having its applications during library development.
+The issue is that different tools have different declaration format and capabilities of path aliases. This means that in order to reuse the same alias across development and testing you are likely to tweak multiple configuration with the setup you cannot directly reuse. This increases the maintenance cost of such setup, making aliasing expensive.
 
-The issue is, different tools configure path aliases in a different way, often resulting in a repetition of the aliases when you wish to reuse the same rules between multiple tools in a single project (i.e. TypeScript and webpack). This leads to brittle and unmaintainable configurations whenever you need to use more than one tool.
+### What does Dotalias do?
 
-This project establishes a single source of truth for path aliases in your projects and derives configurations for various tools based on it. You defined aliases once, then plug that definition into whichever tool (or tools) you're using to achieve consistency and maintainability.
+Dotalias establishes a single configuration format for path aliases and compiles it to configurations that different tools can understand. Effectively, it abstracts all the hassle of having to configure various tools differently. By doing so, you can finally reuse **one** configuration to all the tools you're using.
 
 ## Getting stated
 
@@ -36,6 +36,8 @@ This project establishes a single source of truth for path aliases in your proje
 
 ```bash
 $ npm install dotalias
+# OR
+$ yarn add dotalias
 ```
 
 ### Create configuration
@@ -51,7 +53,7 @@ module.exports = {
 }
 ```
 
-### Integrate
+### Integrate with your tools
 
 Refer to the [integration examples](#integrations) to use this library with various bundlers or testing frameworks.
 
@@ -67,22 +69,13 @@ You can write the alias configuration in any of the following files:
 - `.aliasrc.cjs`
 - `alias.config.js`
 - `alias.config.cjs`
-
-You can also add the `"alias"` key to your `package.json`:
-
-```json
-{
-  "alias": {
-    "myModule": "./module.js"
-  }
-}
-```
+- `"alias"` key in your `package.json`
 
 > We are using [cosmiconfig](https://github.com/davidtheclark/cosmiconfig) to resolve the configuration file. Learn more about the way it gets resolved in the mentioned repository.
 
 ### Writing configuration
 
-The configuration file consists of keys that represent module names and values that stand for relative paths to resolve that module name.
+The configuration file consists of keys that represent _module names_ and values that stand for relative paths to resolve those module names.
 
 ```js
 // alias.config.js
@@ -93,7 +86,7 @@ module.exports = {
 
 > Module paths are relative to the current working directory.
 
-In the example above, we've created a module alias for the `myModule` that will resolve to a local file at `./module.js` when imported in the code:
+In the example above, we've created a module alias for the `myModule` that will resolve to a local file at `./module.js` whenever imported in the code:
 
 ```js
 // Once you've configured your build tools,
@@ -101,11 +94,13 @@ In the example above, we've created a module alias for the `myModule` that will 
 import result from 'myModule'
 ```
 
-In the same fashion, the configuration file can be written in [various formats](#configuration-file). Here's an example using YAML:
+In the same fashion, the configuration file can be written in [various formats](#configuration-file). Here's an example of the configuration in YAML:
 
 ```yaml
 myResult: './module.js'
 ```
+
+## Features
 
 ### Exact module name
 
@@ -186,3 +181,25 @@ This command will generate a `tsconfig.alias.json` partial TypeScript configurat
   "extends": "./tsconfig.alias.json"
 }
 ```
+
+## Research
+
+When deciding on the optimal configuration format, I've researched the path alias configurations for the most common tools I use. Below you can see a table of those tools' capabilities when it comes to path aliases:
+
+| Feature         | TypeScript | webpack         | Rollup          | Jest | .alias |
+| --------------- | ---------- | --------------- | --------------- | ---- | ------ |
+| Exact matches   | ✅         | ✅              | ✅              | ✅   | ✅     |
+| Nested paths    | ✅         | ✅              | ✅              | ✅   | ✅     |
+| Fallbacks       | ✅         | ✅              | ❌ <sup>1</sup> | ✅   | TBA    |
+| RegExp          | ❌         | ❌ <sup>2</sup> | ✅              | ✅   | TBA    |
+| Custom resolver | ❌         | ❌              | ✅              | ❌   | TBA    |
+
+> <sup>1</sup>—possible with a custom resolver;
+> <sup>2</sup>—possible with a custom plugin.
+
+### References
+
+- [TypeScript](https://www.typescriptlang.org/docs/handbook/module-resolution.html#path-mapping)
+- [webpack](https://webpack.js.org/configuration/resolve/#resolvealias)
+- [Rollup](https://www.npmjs.com/package/@rollup/plugin-alias)
+- [Jest](https://jestjs.io/docs/configuration#modulenamemapper-objectstring-string--arraystring)
