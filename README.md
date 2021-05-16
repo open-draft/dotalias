@@ -131,12 +131,14 @@ All the integration examples below assume you have the [configuration file](#con
 
 ### webpack
 
+In order to support dynamic import paths (i.e. wildcards), this library exports a custom webpack plugin instead of the `resolve.alias` configuration object.
+
 ```js
 // webpack.config.js
 const { alias } = require('dotalias')
 
 module.exports = {
-  ...alias.webpack,
+  plugins: [new alias.WebpackPlugin()],
 }
 ```
 

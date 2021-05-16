@@ -7,5 +7,5 @@ module.exports = {
   output: {
     filename: 'build.js',
   },
-  ...alias.webpack,
+  plugins: [new alias.WebpackPlugin()],
 }

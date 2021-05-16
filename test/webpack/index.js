@@ -1,3 +1,4 @@
-import number from 'foo'
+import exact from 'exact-file'
+import one from 'nested-dir/one'
 
-console.log(number)
+export { exact, one }

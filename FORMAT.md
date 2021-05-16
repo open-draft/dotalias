@@ -7,8 +7,8 @@
 | Exact matches   | ✅         | ✅      | ✅     | ✅   |
 | Nested paths    | ✅         | ✅      | ✅     | ✅   |
 | Fallbacks       | ✅         | ✅      | 🟡 \*  | ✅   |
-| RegExp          | ❌         | 🟡 \*   | ✅     | ✅   |
-| Custom resolver | ❌         | ✅      | ✅     | ❌   |
+| RegExp          | ❌         | ❌      | ✅     | ✅   |
+| Custom resolver | ❌         | ❌      | ✅     | ❌   |
 
 > \*—possible through a custom resolver.
 

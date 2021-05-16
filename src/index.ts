@@ -2,7 +2,7 @@ import { cosmiconfigSync } from 'cosmiconfig'
 import { toJestConfig } from './converters/toJestConfig'
 import { toRollup } from './converters/toRollup'
 import { toTypeScript } from './converters/toTypeScript'
-import { toWebpackConfig } from './converters/toWebpackConfig'
+import { DotaliasWebpackPlugin } from './webpack/DotaliasWebpackPlugin'
 
 const explorer = cosmiconfigSync('alias')
 const result = explorer.search()
@@ -13,7 +13,7 @@ if (!result) {
 
 export const alias = {
   jest: toJestConfig(result.config),
-  webpack: toWebpackConfig(result.config),
+  WebpackPlugin: () => new DotaliasWebpackPlugin(result.config),
   rollup: toRollup(result.config),
   toTypeScript: toTypeScript(result.config),
 }
