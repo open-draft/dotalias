@@ -5,7 +5,7 @@
 <h1 align="center">.alias</h1>
 
 <p align="center">
-Manage path aliases across multiple configurations.
+A single configuration for path aliases to reuse across all your tools (TypeScript, webpack, Jest, etc.)
 </p>
 
 ## Motivation
