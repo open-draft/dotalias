@@ -122,7 +122,7 @@ module.exports = {
 
 ## Integrations
 
-All the integration examples below assume you have the [configuration file](#configuration-file) created at the root of your application.
+All the integration examples below assume you have the [configuration file](#configuration-file) created at the root of your application. Whenever you import the `dotalias` package, it automatically reads the closest [configuration](#configuration) and returns the necessary bindings for the integration with other tools.
 
 ### webpack
 
@@ -199,7 +199,7 @@ When deciding on the optimal configuration format, I've researched the path alia
 
 ### References
 
-- [TypeScript](https://www.typescriptlang.org/docs/handbook/module-resolution.html#path-mapping)
-- [webpack](https://webpack.js.org/configuration/resolve/#resolvealias)
-- [Rollup](https://www.npmjs.com/package/@rollup/plugin-alias)
-- [Jest](https://jestjs.io/docs/configuration#modulenamemapper-objectstring-string--arraystring)
+- [TypeScript](https://www.typescriptlang.org/docs/handbook/module-resolution.html#path-mapping) (`paths`)
+- [webpack](https://webpack.js.org/configuration/resolve/#resolvealias) (`resolve.alias`)
+- [Rollup](https://www.npmjs.com/package/@rollup/plugin-alias) (`@rollup/plugin-alias`)
+- [Jest](https://jestjs.io/docs/configuration#modulenamemapper-objectstring-string--arraystring) (`moduleNameMapper`)
