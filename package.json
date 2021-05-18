@@ -1,6 +1,6 @@
 {
   "name": "dotalias",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Manage path alias across multiple configurations (webpack, TypeScript, Jest, etc).",
   "main": "lib/index.js",
   "bin": {
