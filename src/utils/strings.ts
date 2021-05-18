@@ -1,20 +1,20 @@
-export function prepend(str: string) {
-  return (value: string) => str + value
+export function prepend(prefix: string) {
+  return (source: string) => prefix + source
 }
 
-export function append(str: string) {
-  return (value: string) => value + str
+export function append(suffix: string) {
+  return (source: string) => source + suffix
 }
 
-export function startsWith(substr: string) {
-  return (value: string) => {
-    return value.startsWith(substr)
+export function startsWith(prefix: string) {
+  return (source: string) => {
+    return source.startsWith(prefix)
   }
 }
 
-export function endsWith(substr: string) {
+export function endsWith(suffix: string) {
   return (value: string) => {
-    return value.endsWith(substr)
+    return value.endsWith(suffix)
   }
 }
 
@@ -25,4 +25,12 @@ export function replace(
   return (value: string) => {
     return value.replace(source, replacer)
   }
+}
+
+export function replaceWildcardWithPositionals(source: string): string {
+  let wildcardCount = 0
+  return source.replace(/\*/g, () => {
+    wildcardCount++
+    return `$${wildcardCount}`
+  })
 }

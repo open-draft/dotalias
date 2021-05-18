@@ -1,6 +1,11 @@
 import { AliasConfig } from '../glossary'
 import { compose } from '../utils/compose'
-import { append, prepend, replace } from '../utils/strings'
+import {
+  append,
+  prepend,
+  replace,
+  replaceWildcardWithPositionals,
+} from '../utils/strings'
 
 interface PluginAliasDeclaration {
   find: string | RegExp
@@ -23,17 +28,13 @@ function normalizeWildcards(
     const { find, replacement } = declaration
 
     if (typeof find === 'string' && find.includes('*')) {
-      let wildcardCount = 0
       const transformedModuleName = compose(
         prepend('^'),
         append('$'),
         replace(/\*/g, () => '(.*)')
       )(find)
       const moduleNameRegExp = new RegExp(transformedModuleName)
-      const transformedReplacement = replace(/\*/g, () => {
-        wildcardCount++
-        return `$${wildcardCount}`
-      })(replacement)
+      const transformedReplacement = replaceWildcardWithPositionals(replacement)
 
       return {
         find: moduleNameRegExp,

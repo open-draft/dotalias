@@ -8,6 +8,7 @@ import {
   endsWith,
   prepend,
   replace,
+  replaceWildcardWithPositionals,
   startsWith,
 } from '../utils/strings'
 
@@ -36,12 +37,8 @@ const transformWildcards: Reducer<AliasConfig> = (
   config,
   [moduleName, modulePath]
 ) => {
-  let wildcardCount = 0
   const transformedModuleName = replace(/\*/g, () => '(.*)')(moduleName)
-  const transformedModulePath = replace(/\*/g, () => {
-    wildcardCount++
-    return `$${wildcardCount}`
-  })(modulePath)
+  const transformedModulePath = replaceWildcardWithPositionals(modulePath)
 
   config[transformedModuleName] = transformedModulePath
   return config
