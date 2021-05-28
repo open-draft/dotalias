@@ -33,7 +33,7 @@ it('transforms wildcards to RegExp groups', () => {
 it('uses custom resolver for fallback module paths', () => {
   const config = toRollup({
     exact: 'src/exact.js',
-    'utils/*': ['a/*', 'b/*'] as any as string,
+    'utils/*': ['a/*', 'b/*'],
   })
 
   expect(config).toHaveProperty('entries', [

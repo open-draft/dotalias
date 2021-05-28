@@ -69,26 +69,28 @@ export class DotaliasWebpackPlugin implements WebpackPluginInstance {
               return injectPositionals(absoluteModulePath, positionals)
             })
 
-          const firstExistingModule = modulePaths.find((modulePath) => {
-            try {
-              require.resolve(modulePath)
-              return true
-            } catch (error) {
-              return false
-            }
-          })
-
-          return firstExistingModule
+          return this.resolveFirstExistingModule(modulePaths)
         }
 
         // Alias name is a regular string.
         if (actualModuleName === moduleName) {
-          return modulePath
+          return this.resolveFirstExistingModule([].concat(modulePath))
         }
       },
       undefined
     )
 
     return resource
+  }
+
+  private resolveFirstExistingModule(paths: string[]): string | undefined {
+    return paths.find((modulePath) => {
+      try {
+        require.resolve(modulePath)
+        return true
+      } catch (error) {
+        return false
+      }
+    })
   }
 }

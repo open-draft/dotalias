@@ -1,3 +1,3 @@
 export type AliasConfig = {
-  [alias: string]: string
+  [alias: string]: string | string[]
 }
