@@ -1,11 +1,11 @@
-import { AliasConfig } from '../glossary'
-import { compose } from '../utils/compose'
+import { AliasConfig } from '../../glossary'
+import { compose } from '../../utils/compose'
 import {
-  append,
-  prepend,
-  replace,
+  normalizeWildcardString,
   replaceWildcardWithPositionals,
-} from '../utils/strings'
+} from '../../utils/strings'
+import { createCustomResolver } from './createCustomResolver'
+import { getFallbackAlias } from './getFallbackAlias'
 
 interface PluginAliasDeclaration {
   find: string | RegExp
@@ -14,9 +14,11 @@ interface PluginAliasDeclaration {
 
 function toPluginAliasFormat(config: AliasConfig): PluginAliasDeclaration[] {
   return Object.entries(config).map(([moduleName, modulePath]) => {
+    const replacement = Array.isArray(modulePath) ? moduleName : modulePath
+
     return {
       find: moduleName,
-      replacement: modulePath,
+      replacement,
     }
   })
 }
@@ -28,13 +30,12 @@ function normalizeWildcards(
     const { find, replacement } = declaration
 
     if (typeof find === 'string' && find.includes('*')) {
-      const transformedModuleName = compose(
-        prepend('^'),
-        append('$'),
-        replace(/\*/g, () => '(.*)')
-      )(find)
+      const transformedModuleName = normalizeWildcardString(find)
       const moduleNameRegExp = new RegExp(transformedModuleName)
-      const transformedReplacement = replaceWildcardWithPositionals(replacement)
+      const transformedReplacement =
+        typeof replacement === 'function'
+          ? replacement
+          : replaceWildcardWithPositionals(replacement)
 
       return {
         find: moduleNameRegExp,
@@ -52,8 +53,15 @@ function normalizeWildcards(
  */
 export function toRollup(config: AliasConfig) {
   const entries = compose(normalizeWildcards, toPluginAliasFormat)(config)
+  const fallbackAlias = getFallbackAlias(config)
 
-  return {
-    entries,
-  }
+  return Object.assign(
+    {},
+    {
+      entries,
+    },
+    fallbackAlias.length > 0 && {
+      customResolver: createCustomResolver(fallbackAlias),
+    }
+  )
 }

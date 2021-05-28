@@ -45,3 +45,15 @@ it('transforms wildcards to RegExp groups', () => {
     },
   })
 })
+
+it('respects fallback module paths', () => {
+  expect(
+    toJestConfig({
+      'utils/*': ['a/*', 'b/*'] as any as string,
+    })
+  ).toEqual({
+    moduleNameMapper: {
+      '^utils/(.*)$': ['a/$1', 'b/$1'],
+    },
+  })
+})
