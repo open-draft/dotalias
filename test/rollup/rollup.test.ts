@@ -22,4 +22,6 @@ it('supports rollup module alias with "@rollup/plugin-alias"', () => {
   // Expect Rollup to resolve imported modules in-place.
   expect(output).toContain(`var exact = 'exact'`)
   expect(output).toContain(`var one = 'dir-one'`)
+  expect(output).toContain(`var utilOne = 'fallback-utils-one`)
+  expect(output).toContain(`var utilTwo = 'fallback-src-utils-two`)
 })

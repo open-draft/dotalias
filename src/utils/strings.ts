@@ -1,3 +1,5 @@
+import { compose } from './compose'
+
 export function prepend(prefix: string) {
   return (source: string) => prefix + source
 }
@@ -27,10 +29,28 @@ export function replace(
   }
 }
 
+export function normalizeWildcardString(source: string): string {
+  return compose(
+    prepend('^'),
+    append('$'),
+    replace(/\*/g, () => '(.*)')
+  )(source)
+}
+
 export function replaceWildcardWithPositionals(source: string): string {
   let wildcardCount = 0
   return source.replace(/\*/g, () => {
     wildcardCount++
     return `$${wildcardCount}`
+  })
+}
+
+export function injectPositionals(
+  source: string,
+  positionals: string[]
+): string {
+  return source.replace(/\$(\d)/g, (_, group) => {
+    const positionalIndex = parseInt(group, 10) - 1
+    return positionals[positionalIndex]
   })
 }

@@ -1,5 +1,6 @@
 import { createFsFromVolume, Volume } from 'memfs'
 import { webpack } from 'webpack'
+
 const webpackConfig = require('./webpack.config')
 
 it('supports webpack module alias', async () => {

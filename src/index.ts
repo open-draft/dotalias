@@ -1,6 +1,6 @@
 import { cosmiconfigSync } from 'cosmiconfig'
 import { toJestConfig } from './converters/toJestConfig'
-import { toRollup } from './converters/toRollup'
+import { toRollup } from './converters/rollup/toRollup'
 import { toTypeScript } from './converters/toTypeScript'
 import { DotaliasWebpackPlugin } from './webpack/DotaliasWebpackPlugin'
 

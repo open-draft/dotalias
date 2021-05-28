@@ -3,7 +3,7 @@ import { compose } from '../utils/compose'
 
 const wrapPathsInArray = (config: AliasConfig) => {
   return Object.entries(config).reduce((config, [moduleName, modulePath]) => {
-    config[moduleName] = [modulePath]
+    config[moduleName] = [].concat(modulePath)
 
     return config
   }, {})

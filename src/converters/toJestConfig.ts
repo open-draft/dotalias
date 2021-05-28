@@ -38,9 +38,11 @@ const transformWildcards: Reducer<AliasConfig> = (
   [moduleName, modulePath]
 ) => {
   const transformedModuleName = replace(/\*/g, () => '(.*)')(moduleName)
-  const transformedModulePath = replaceWildcardWithPositionals(modulePath)
+  const transformedModulePath = Array.isArray(modulePath)
+    ? modulePath.map(replaceWildcardWithPositionals)
+    : replaceWildcardWithPositionals(modulePath)
 
-  config[transformedModuleName] = transformedModulePath
+  config[transformedModuleName] = transformedModulePath as string
   return config
 }
 

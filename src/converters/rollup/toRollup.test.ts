@@ -1,9 +1,4 @@
-import * as path from 'path'
 import { toRollup } from './toRollup'
-
-function fromProcess(chunk: string) {
-  return path.resolve(process.cwd(), chunk)
-}
 
 it('handles exact module name mapping', () => {
   expect(
@@ -33,4 +28,24 @@ it('transforms wildcards to RegExp groups', () => {
       },
     ],
   })
+})
+
+it('uses custom resolver for fallback module paths', () => {
+  const config = toRollup({
+    exact: 'src/exact.js',
+    'utils/*': ['a/*', 'b/*'] as any as string,
+  })
+
+  expect(config).toHaveProperty('entries', [
+    {
+      find: 'exact',
+      replacement: 'src/exact.js',
+    },
+    {
+      find: /^utils\/(.*)$/,
+      replacement: 'utils/$1',
+    },
+  ])
+  expect(config).toHaveProperty('customResolver')
+  expect(config.customResolver).toBeInstanceOf(Function)
 })

@@ -120,6 +120,17 @@ module.exports = {
 }
 ```
 
+### Fallback paths
+
+A single alias may specify multiple paths. The first matching path resolves.
+
+```js
+// alias.config.js
+module.exports = {
+  'utils/*': ['src/utils/*', 'utils/*'],
+}
+```
+
 ## Integrations
 
 All the integration examples below assume you have the [configuration file](#configuration-file) created at the root of your application. Whenever you import the `dotalias` package, it automatically reads the closest [configuration](#configuration) and returns the necessary bindings for the integration with other tools.
@@ -190,7 +201,7 @@ When deciding on the optimal configuration format, I've researched the path alia
 | --------------- | ---------- | --------------- | --------------- | ---- | ------ |
 | Exact matches   | ✅         | ✅              | ✅              | ✅   | ✅     |
 | Nested paths    | ✅         | ✅              | ✅              | ✅   | ✅     |
-| Fallbacks       | ✅         | ✅              | ❌ <sup>1</sup> | ✅   | TBA    |
+| Fallbacks       | ✅         | ✅              | ❌ <sup>1</sup> | ✅   | ✅     |
 | RegExp          | ❌         | ❌ <sup>2</sup> | ✅              | ✅   | TBA    |
 | Custom resolver | ❌         | ❌              | ✅              | ❌   | TBA    |
 

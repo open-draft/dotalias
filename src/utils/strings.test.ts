@@ -4,7 +4,9 @@ import {
   prepend,
   startsWith,
   replace,
+  normalizeWildcardString,
   replaceWildcardWithPositionals,
+  injectPositionals,
 } from './strings'
 
 it('prepend()', () => {
@@ -36,9 +38,23 @@ it('replace()', () => {
   )
 })
 
+it('normalizeWildcardString', () => {
+  expect(normalizeWildcardString('utils/')).toEqual('^utils/$')
+  expect(normalizeWildcardString('utils/*')).toEqual('^utils/(.*)$')
+})
+
 it('replaceWildcardWithPositionals()', () => {
+  expect(replaceWildcardWithPositionals('/src/')).toEqual('/src/')
   expect(replaceWildcardWithPositionals('/src/*')).toEqual('/src/$1')
   expect(replaceWildcardWithPositionals('/src/*/images/*')).toEqual(
     '/src/$1/images/$2'
   )
+})
+
+it('injectPositionals', () => {
+  expect(injectPositionals('utils/', ['internal'])).toEqual('utils/')
+  expect(injectPositionals('utils/$1', ['internal'])).toEqual('utils/internal')
+  expect(
+    injectPositionals('utils/$1/nested/$2', ['internal', 'addNumbers'])
+  ).toEqual('utils/internal/nested/addNumbers')
 })

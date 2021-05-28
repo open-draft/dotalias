@@ -2,7 +2,11 @@ import * as path from 'path'
 import { Compiler, WebpackPluginInstance } from 'webpack'
 import { AliasConfig } from '../glossary'
 import { compose } from '../utils/compose'
-import { replace } from '../utils/strings'
+import {
+  injectPositionals,
+  replace,
+  replaceWildcardWithPositionals,
+} from '../utils/strings'
 
 export class DotaliasWebpackPlugin implements WebpackPluginInstance {
   private config: AliasConfig
@@ -28,7 +32,11 @@ export class DotaliasWebpackPlugin implements WebpackPluginInstance {
 
   private transformConfig(config: AliasConfig): AliasConfig {
     return Object.entries(config).reduce((config, [moduleName, modulePath]) => {
-      config[moduleName] = path.resolve(process.cwd(), modulePath)
+      config[moduleName] = Array.isArray(modulePath)
+        ? modulePath.map((modulePath) =>
+            path.resolve(process.cwd(), modulePath)
+          )
+        : path.resolve(process.cwd(), modulePath)
       return config
     }, {})
   }
@@ -52,13 +60,25 @@ export class DotaliasWebpackPlugin implements WebpackPluginInstance {
             return
           }
 
-          let wildcardCount = 0
-          const transormedModulePath = replace(/\*/g, (groupIndex) => {
-            wildcardCount++
-            return match[wildcardCount]
-          })(modulePath)
+          const [, ...positionals] = match
 
-          return transormedModulePath
+          const modulePaths = []
+            .concat(modulePath)
+            .map(replaceWildcardWithPositionals)
+            .map((absoluteModulePath) => {
+              return injectPositionals(absoluteModulePath, positionals)
+            })
+
+          const firstExistingModule = modulePaths.find((modulePath) => {
+            try {
+              require.resolve(modulePath)
+              return true
+            } catch (error) {
+              return false
+            }
+          })
+
+          return firstExistingModule
         }
 
         // Alias name is a regular string.
