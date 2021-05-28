@@ -199,8 +199,8 @@ When deciding on the optimal configuration format, I've researched the path alia
 
 | Feature         | TypeScript | webpack         | Rollup          | Jest | .alias |
 | --------------- | ---------- | --------------- | --------------- | ---- | ------ |
-| Exact matches   | ✅         | ✅              | ✅              | ✅   | ✅     |
-| Nested paths    | ✅         | ✅              | ✅              | ✅   | ✅     |
+| Exact paths     | ✅         | ✅              | ✅              | ✅   | ✅     |
+| Dynamic paths   | ✅         | ✅              | ✅              | ✅   | ✅     |
 | Fallbacks       | ✅         | ✅              | ❌ <sup>1</sup> | ✅   | ✅     |
 | RegExp          | ❌         | ❌ <sup>2</sup> | ✅              | ✅   | TBA    |
 | Custom resolver | ❌         | ❌              | ✅              | ❌   | TBA    |
