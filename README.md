@@ -203,7 +203,7 @@ When deciding on the optimal configuration format, I've researched the path alia
 | Dynamic paths   | ✅         | ✅              | ✅              | ✅   | ✅     |
 | Fallbacks       | ✅         | ✅              | ❌ <sup>1</sup> | ✅   | ✅     |
 | RegExp          | ❌         | ❌ <sup>2</sup> | ✅              | ✅   | TBA    |
-| Custom resolver | ❌         | ❌              | ✅              | ❌   | TBA    |
+| Custom resolver | ❌         | ❌ <sup>2</sup> | ✅              | ❌   | TBA    |
 
 > <sup>1</sup>—possible with a custom resolver;
 > <sup>2</sup>—possible with a custom plugin.
