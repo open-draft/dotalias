@@ -1,6 +1,6 @@
 {
   "name": "dotalias",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "A single configuration for path aliases to reuse across all your tools (TypeScript, webpack, Jest, etc.)",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
