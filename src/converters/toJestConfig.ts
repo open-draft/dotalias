@@ -1,3 +1,4 @@
+import * as path from 'path'
 import { AliasConfig } from '../glossary'
 import { compose } from '../utils/compose'
 import { given } from '../utils/given'
@@ -42,7 +43,21 @@ const transformWildcards: Reducer<AliasConfig> = (
     ? modulePath.map(replaceWildcardWithPositionals)
     : replaceWildcardWithPositionals(modulePath)
 
-  config[transformedModuleName] = transformedModulePath as string
+  config[transformedModuleName] = transformedModulePath
+  return config
+}
+
+const prependRootDir: Reducer<AliasConfig> = (
+  config,
+  [moduleName, modulePath]
+) => {
+  const prepentRootDir = given(startsWith('./'), (modulePath) =>
+    path.join('<rootDir>', modulePath)
+  )
+  const transformedModulePath = Array.isArray(modulePath)
+    ? modulePath.map(prepentRootDir)
+    : prepentRootDir(modulePath)
+  config[moduleName] = transformedModulePath
   return config
 }
 
@@ -52,6 +67,7 @@ const transformWildcards: Reducer<AliasConfig> = (
  */
 export function toJestConfig(config: AliasConfig) {
   const moduleNameMapper = compose(
+    reduceEntries(prependRootDir),
     reduceEntries(normalizeExactMatch),
     reduceEntries(transformWildcards)
   )(config)

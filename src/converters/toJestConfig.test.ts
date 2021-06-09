@@ -7,7 +7,7 @@ it('appends ^ and $ to exact module name', () => {
     })
   ).toEqual({
     moduleNameMapper: {
-      '^exact$': './exact/file.js',
+      '^exact$': '<rootDir>/exact/file.js',
     },
   })
 })
@@ -19,7 +19,7 @@ it('appends ^ and $ to exact directory name', () => {
     })
   ).toEqual({
     moduleNameMapper: {
-      '^dir$': './directory',
+      '^dir$': '<rootDir>/directory',
     },
   })
 })
@@ -31,7 +31,7 @@ it('transforms wildcards to RegExp groups', () => {
     })
   ).toEqual({
     moduleNameMapper: {
-      '^nested/(.*)$': './fixtures/nested/$1',
+      '^nested/(.*)$': '<rootDir>/fixtures/nested/$1',
     },
   })
 
@@ -41,7 +41,7 @@ it('transforms wildcards to RegExp groups', () => {
     })
   ).toEqual({
     moduleNameMapper: {
-      '^users/(.*)/pictures/(.*)$': './fixtures/users/$1/images/$2',
+      '^users/(.*)/pictures/(.*)$': '<rootDir>/fixtures/users/$1/images/$2',
     },
   })
 })
