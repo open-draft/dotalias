@@ -7,7 +7,7 @@ import {
 import { createCustomResolver } from './createCustomResolver'
 import { getFallbackAlias } from './getFallbackAlias'
 
-interface PluginAliasDeclaration {
+export interface PluginAliasDeclaration {
   find: string | RegExp
   replacement: string
 }
