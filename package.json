@@ -8,6 +8,10 @@
     "dotalias": "lib/bin/index.js"
   },
   "author": "Artem Zakharchenko",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/open-draft/dotalias"
+  },
   "license": "MIT",
   "scripts": {
     "start": "tsc -w",
